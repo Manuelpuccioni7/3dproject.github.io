@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <link rel="icon" href="logo_3dproject.svg" type="image/svg+xml">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3dproject | Shop</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    header {
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    header img.logo {
+      height: 50px;
+    }
+    nav a {
+      color: #f0f0f0;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .product-card {
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 250px;
+      text-align: center;
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product-card h3 {
+      margin: 1rem 0 0.5rem;
+    }
+    .product-card p {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+    .product-card .price {
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    .product-card button {
+      background-color: #fff;
+      color: #121212;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+  
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+button:hover {
+  background-color: #ccc;
+  transform: scale(1.05);
+}
+
+
+.cart-item button {
+  background-color: #ff4d4d;
+  color: white;
+  font-weight: bold;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.cart-item button:hover {
+  background-color: #ff1a1a;
+}
+
+</style>
+</head>
+<body>
+  <header>
+    <img src="logo_3dproject.svg" alt="Logo 3dproject" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">Carrello</a>
+    </nav>
+  </header>
+
+  <h1>Prodotti in vendita</h1>
+
+  <section class="product-grid">
+    <div class="product-card">
+      <img src="placeholder1.jpg" alt="Supporto Specchietto">
+      <h3>Supporto Specchietto</h3>
+      <p>Compatibile con diverse moto, resistente e leggero.</p>
+      <div class="price">€12.99</div>
+      <button>Aggiungi al carrello</button>
+    </div>
+
+    <div class="product-card">
+      <img src="placeholder2.png" alt="Porta Targa Custom">
+      <h3>Porta Targa Custom</h3>
+      <p>Design sportivo, stampa resistente alle intemperie.</p>
+      <div class="price">€19.99</div>
+      <button>Aggiungi al carrello</button>
+    </div>
+
+    <div class="product-card">
+      <img src="placeholder3.png" alt="Cover Centralina">
+      <h3>Cover Centralina</h3>
+      <p>Protezione e stile per la centralina della tua moto.</p>
+      <div class="price">€9.99</div>
+      <button>Aggiungi al carrello</button>
+    </div>
+
+    <!-- Altri prodotti segnaposto -->
+  </section>
+
+<section id="product-detail" style="display:none; padding:2rem;">
+  <h2 id="detail-name"></h2>
+  <img id="detail-img" style="max-width:300px;" />
+  <p id="detail-desc"></p>
+  <div class="price" id="detail-price"></div>
+  <button onclick="addToCart(detailProduct)">Aggiungi al carrello</button>
+  <button onclick="closeDetail()">Chiudi</button>
+</section>
+
+<section id="carrello" style="padding:2rem;">
+  <h2>Carrello</h2>
+  <div id="cart-items"></div>
+  <h3 id="cart-total">Totale: €0.00</h3>
+</section>
+
+<script>
+  const cart = [];
+  let detailProduct = null;
+
+  function addToCart(product) {
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  function renderCart() {
+    const container = document.getElementById('cart-items');
+    const total = cart.reduce((sum, p) => sum + p.price, 0);
+    document.getElementById('cart-total').innerText = `Totale: €${total.toFixed(2)}`;
+    container.innerHTML = '';
+    cart.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = "cart-item";
+      div.textContent = `${item.name} - €${item.price.toFixed(2)}`;
+      const btn = document.createElement('button');
+      btn.textContent = 'Rimuovi';
+      btn.onclick = () => {
+        cart.splice(i, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      };
+      div.appendChild(btn);
+      container.appendChild(div);
+    });
+  }
+
+  function showDetail(product) {
+    detailProduct = product;
+    document.getElementById('detail-name').innerText = product.name;
+    document.getElementById('detail-img').src = product.img;
+    document.getElementById('detail-desc').innerText = product.desc;
+    document.getElementById('detail-price').innerText = `€${product.price.toFixed(2)}`;
+    document.getElementById('product-detail').style.display = 'block';
+  }
+
+  function closeDetail() {
+    document.getElementById('product-detail').style.display = 'none';
+  }
+
+  document.querySelectorAll('.product-card').forEach(card => {
+    const name = card.querySelector('h3').innerText;
+    const img = card.querySelector('img').src;
+    const desc = card.querySelector('p').innerText;
+    const price = parseFloat(card.querySelector('.price').innerText.replace('€',''));
+    const product = {name, img, desc, price};
+
+    card.addEventListener('click', () => showDetail(product));
+    card.querySelector('button').addEventListener('click', (e) => {
+      e.stopPropagation();
+      addToCart(product);
+    });
+  });
+</script>
+</body>
+
+</html>

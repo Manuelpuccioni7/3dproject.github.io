@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3dproject | Shop Online</title>
+  <meta name="description" content="3dproject: pezzi unici per moto stampati in 3D. Design su misura, qualità senza compromessi.">
+  <link rel="icon" href="logo_3dproject.svg" type="image/svg+xml">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    header {
+      background-color: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    header img.logo {
+      height: 50px;
+    }
+    .icon {
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+    }
+    nav a {
+      color: #f0f0f0;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+.hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background-image: url('hero_background.jpeg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+.hero p {
+  font-size: 1.2rem;
+  color: #fff;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  margin-bottom: 2rem;
+}
+
+    .hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+    .hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+    .button {
+      background-color: #fff;
+      color: #121212;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .section {
+      padding: 4rem 2rem;
+      background-color: #1a1a1a;
+    }
+    .section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .services, .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .card {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 300px;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .contact {
+      background-color: #121212;
+      padding: 2rem;
+      text-align: center;
+    }
+    footer {
+      background-color: #0f0f0f;
+      color: #888;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    #auth-container {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #1f1f1f;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      z-index: 1000;
+    }
+    #auth-container input {
+      display: block;
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: none;
+    }
+    #auth-container .button {
+      width: 100%;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+    }
+  
+.button {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.button:hover {
+  transform: scale(1.05);
+  background-color: #ddd;
+  color: #000;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+
+.gallery-scroll {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+
+.gallery-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 30s linear infinite;
+  padding: 1rem 0;
+  overflow: visible;
+}
+
+.gallery-scroll:hover .gallery-track {
+  animation-play-state: paused;
+}
+
+.gallery-track img {
+  height: 240px;
+  width: auto;
+  margin-right: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.gallery-track img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+  border-radius: 16px;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+  100% { transform: translateX(-50%); }
+}
+
+</style>
+</head>
+<body>
+  <div id="overlay" onclick="closeAuth()"></div>
+  <div id="auth-container">
+    <h3 id="auth-title">Registrati</h3>
+    <input type="email" id="auth-email" placeholder="Email">
+    <input type="password" id="auth-password" placeholder="Password">
+    <button class="button" onclick="submitAuth()">Invia</button>
+    <p id="switch-auth" style="text-align:center; cursor:pointer; margin-top:10px;" onclick="toggleAuth()">Hai già un account? Accedi</p>
+  </div>
+
+  <header>
+    <div class="header-left">
+      <img src="logo_3dproject.svg" alt="Logo 3dproject" class="logo">
+      <nav>
+        <a href="3dproject_shop_mod.html">Shop</a>
+        <a href="#galleria">Galleria</a>
+        <a href="#servizi">Servizi</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <a href="cart.html"><img src="cart_icon.png" alt="Carrello" class="icon"></a>
+      <img src="user_icon.png" alt="Profilo utente" class="icon" onclick="showAuth()">
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Benvenuto su 3dproject</h1>
+    <p>Accessori per moto stampati in 3D con precisione, qualità e stile. Realizziamo ogni tuo progetto su misura.</p>
+    <a href="3dproject_shop_mod.html"><button class="button">Vai allo shop</button></a>
+  </section>
+
+  <section class="section" id="servizi">
+    <h2>I nostri servizi</h2>
+    <div class="services">
+      <div class="card">
+        <img src="placeholder1.jpg" alt="Stampa 3D su misura">
+        <h3>Stampa 3D personalizzata</h3>
+        <p>Creazione di componenti unici per moto, interamente su misura.</p>
+      </div>
+      <div class="card">
+        <img src="placeholder2.png" alt="Design tecnico">
+        <h3>Progettazione CAD</h3>
+        <p>Disegni tecnici su misura per trasformare le tue idee in realtà stampabili.</p>
+      </div>
+      <div class="card">
+        <img src="placeholder3.png" alt="Accessori moto">
+        <h3>Componenti moto 3D</h3>
+        <p>Realizzazione e vendita di accessori funzionali per ogni tipo di moto.</p>
+      </div>
+    </div>
+  </section>
+
+  
+<section class="section" id="galleria">
+  <h2>Galleria fotografica</h2>
+  <div class="gallery-scroll">
+    <div class="gallery-track">
+      <img src="gallery1.png" alt="Foto 1">
+      <img src="gallery2.png" alt="Foto 2">
+      <img src="gallery3.png" alt="Foto 3">
+      <img src="gallery4.jpeg" alt="Foto 4">
+      <img src="gallery5.png" alt="Foto 5">
+      <img src="gallery6.jpg" alt="Foto 6">
+      <img src="gallery7.jpg" alt="Foto 7">
+    
+      <img src="gallery1.png" alt="Foto 1">
+      <img src="gallery2.png" alt="Foto 2">
+      <img src="gallery3.png" alt="Foto 3">
+      <img src="gallery4.jpeg" alt="Foto 4">
+      <img src="gallery5.png" alt="Foto 5">
+      <img src="gallery6.jpg" alt="Foto 6">
+      <img src="gallery7.jpg" alt="Foto 7">
+    </div>
+  </div>
+</section>
+
+
+  <section class="contact" id="contatti">
+    <h2>Contattaci</h2>
+    <p>📞 375 538 0761</p>
+    <p>📧 3dproject.prod@gmail.com</p>
+  </section>
+
+  <footer>
+    &copy; 2025 3dproject - Tutti i diritti riservati.
+  </footer>
+
+  <script>
+    let isLogin = false;
+
+    function showAuth() {
+      document.getElementById('auth-container').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeAuth() {
+      document.getElementById('auth-container').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function toggleAuth() {
+      isLogin = !isLogin;
+      document.getElementById('auth-title').innerText = isLogin ? 'Accedi' : 'Registrati';
+      document.getElementById('switch-auth').innerText = isLogin ? 'Non hai un account? Registrati' : 'Hai già un account? Accedi';
+    }
+
+    function submitAuth() {
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      const mode = isLogin ? 'login' : 'registrazione';
+      const blob = new Blob([
+        `Modo: ${mode}\nEmail: ${email}\nPassword: ${password}\n\n`
+      ], { type: 'text/plain' });
+
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${mode}_3dproject.txt`;
+      a.click();
+
+      closeAuth();
+    }
+  </script>
+</body>
+</html>
