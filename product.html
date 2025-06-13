@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3dproject | Dettagli Prodotto</title>
+  <meta name="description" content="Dettagli del prodotto su 3dproject: accessori per moto stampati in 3D.">
+  <link rel="icon" href="logo_3dproject.svg" type="image/svg+xml">
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    header {
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    header img.logo {
+      height: 50px;
+    }
+    nav a {
+      color: #f0f0f0;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:focus {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+    .product-detail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product-detail img {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    .product-info h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+    .product-info .price {
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+    .product-info p {
+      font-size: 1rem;
+      color: #bbb;
+      margin-bottom: 2rem;
+    }
+    .product-info .buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    .product-info button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .product-info .add-to-cart {
+      background-color: #fff;
+      color: #121212;
+    }
+    .product-info .add-to-cart:hover {
+      background-color: #ccc;
+      transform: scale(1.05);
+    }
+    .product-info .buy-now {
+      background-color: #ff9900;
+      color: #fff;
+    }
+    .product-info .buy-now:hover {
+      background-color: #e68a00;
+      transform: scale(1.05);
+    }
+    .product-info .back-to-shop {
+      background-color: #666;
+      color: #fff;
+    }
+    .product-info .back-to-shop:hover {
+      background-color: #555;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo_3dproject.svg" alt="Logo 3dproject" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="3dproject_shop_mod.html">Shop</a>
+      <a href="cart.html">Carrello</a>
+    </nav>
+  </header>
+
+  <section class="product-detail">
+    <img id="product-img" src="" alt="">
+    <div class="product-info">
+      <h1 id="product-name"></h1>
+      <div class="price" id="product-price"></div>
+      <p id="product-desc"></p>
+      <div class="buttons">
+        <button class="add-to-cart" onclick="addToCart()" aria-label="Aggiungi al carrello">Aggiungi al carrello</button>
+        <button class="buy-now" onclick="buyNow()" aria-label="Acquista ora">Acquista</button>
+        <button class="back-to-shop" onclick="goToShop()" aria-label="Torna allo Shop">Torna allo Shop</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const products = [
+      { id: 1, name: "Supporto Specchietto", img: "placeholder1.jpg", desc: "Compatibile con diverse moto, resistente e leggero.", price: 12.99 },
+      { id: 2, name: "Porta Targa Custom", img: "placeholder2.png", desc: "Design sportivo, stampa resistente alle intemperie.", price: 19.99 },
+      { id: 3, name: "Cover Centralina", img: "placeholder3.png", desc: "Protezione e stile per la centralina della tua moto.", price: 9.99 }
+    ];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get('id'));
+    const product = products.find(p => p.id === productId);
+
+    if (product) {
+      document.getElementById('product-img').src = product.img;
+      document.getElementById('product-img').alt = product.name;
+      document.getElementById('product-name').innerText = product.name;
+      document.getElementById('product-price').innerText = `€${product.price.toFixed(2)}`;
+      document.getElementById('product-desc').innerText = product.desc;
+    } else {
+      document.querySelector('.product-detail').innerHTML = '<p>Prodotto non trovato.</p>';
+    }
+
+    function addToCart() {
+      if (product) {
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} aggiunto al carrello!`);
+      }
+    }
+
+    function buyNow() {
+      if (product) {
+        alert(`Procedi all'acquisto di ${product.name}! (Checkout non implementato)`);
+      }
+    }
+
+    function goToShop() {
+      window.location.href = "./3dproject_shop_mod.html";
+    }
+
+    // Supporto per la navigazione da tastiera
+    document.querySelectorAll('.buttons button').forEach(button => {
+      button.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          button.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
